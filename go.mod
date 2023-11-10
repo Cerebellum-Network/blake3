@@ -1,4 +1,4 @@
-module github.com/Cerebellum-Network/blake3
+module github.com/cerebellum-network/blake3
 
 go 1.17
 
