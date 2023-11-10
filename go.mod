@@ -1,4 +1,4 @@
-module lukechampine.com/blake3
+module cere.network/blake3
 
 go 1.17
 
