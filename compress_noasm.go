@@ -76,7 +76,7 @@ func wordsToBytes(words [16]uint32, block *[64]byte) {
 	}
 }
 
-func bytesToCV(b []byte) [8]uint32 {
+func BytesToCV(b []byte) [8]uint32 {
 	var cv [8]uint32
 	for i := range cv {
 		cv[i] = binary.LittleEndian.Uint32(b[4*i:])
