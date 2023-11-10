@@ -84,7 +84,7 @@ func bytesToCV(b []byte) [8]uint32 {
 	return cv
 }
 
-func cvToBytes(cv *[8]uint32) *[32]byte {
+func CvToBytes(cv *[8]uint32) *[32]byte {
 	var b [32]byte
 	for i, w := range cv {
 		binary.LittleEndian.PutUint32(b[4*i:], w)
