@@ -54,7 +54,7 @@ func BaoEncode(dst io.WriterAt, data io.Reader, dataLen int64, outboard bool) ([
 		if err != nil {
 			return 0, [8]uint32{}
 		} else if bufLen <= ChunkSize {
-			cv := ChainingValue(compressChunk(read(chunkBuf[:bufLen]), &Iv, counter, flags))
+			cv := ChainingValue(CompressChunk(read(chunkBuf[:bufLen]), &Iv, counter, flags))
 			counter++
 			if !outboard {
 				write(chunkBuf[:bufLen], off)
@@ -105,7 +105,7 @@ func BaoDecode(dst io.Writer, data, outboard io.Reader, root [32]byte) (bool, er
 		if err != nil {
 			return false
 		} else if bufLen <= ChunkSize {
-			n := compressChunk(read(data, buf[:bufLen]), &Iv, counter, flags)
+			n := CompressChunk(read(data, buf[:bufLen]), &Iv, counter, flags)
 			counter++
 			return cv == ChainingValue(n)
 		}

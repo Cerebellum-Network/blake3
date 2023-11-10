@@ -192,7 +192,7 @@ func Sum512(b []byte) (out [64]byte) {
 		hashBlock(&out, b)
 		return
 	} else if len(b) <= ChunkSize {
-		n = compressChunk(b, &Iv, 0, 0)
+		n = CompressChunk(b, &Iv, 0, 0)
 		n.flags |= FlagRoot
 	} else {
 		h := *defaultHasher

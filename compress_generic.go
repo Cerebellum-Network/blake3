@@ -110,12 +110,12 @@ func ChainingValue(n Node) (cv [8]uint32) {
 
 func compressBufferGeneric(buf *[maxSIMD * ChunkSize]byte, buflen int, key *[8]uint32, counter uint64, flags uint32) (n Node) {
 	if buflen <= ChunkSize {
-		return compressChunk(buf[:buflen], key, counter, flags)
+		return CompressChunk(buf[:buflen], key, counter, flags)
 	}
 	var cvs [maxSIMD][8]uint32
 	var numCVs uint64
 	for bb := bytes.NewBuffer(buf[:buflen]); bb.Len() > 0; numCVs++ {
-		cvs[numCVs] = ChainingValue(compressChunk(bb.Next(ChunkSize), key, counter+numCVs, flags))
+		cvs[numCVs] = ChainingValue(CompressChunk(bb.Next(ChunkSize), key, counter+numCVs, flags))
 	}
 	return mergeSubtrees(&cvs, numCVs, key, flags)
 }

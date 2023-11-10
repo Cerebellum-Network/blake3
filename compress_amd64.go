@@ -31,7 +31,7 @@ func compressBufferAVX512(buf *[maxSIMD * ChunkSize]byte, buflen int, key *[8]ui
 	if buflen%ChunkSize != 0 {
 		// use non-asm for remainder
 		partialChunk := buf[buflen-buflen%ChunkSize : buflen]
-		cvs[numChunks] = ChainingValue(compressChunk(partialChunk, key, counter+numChunks, flags))
+		cvs[numChunks] = ChainingValue(CompressChunk(partialChunk, key, counter+numChunks, flags))
 		numChunks++
 	}
 	return mergeSubtrees(&cvs, numChunks, key, flags)
@@ -49,7 +49,7 @@ func compressBufferAVX2(buf *[maxSIMD * ChunkSize]byte, buflen int, key *[8]uint
 	if buflen%ChunkSize != 0 {
 		// use non-asm for remainder
 		partialChunk := buf[buflen-buflen%ChunkSize : buflen]
-		cvs[numChunks] = ChainingValue(compressChunk(partialChunk, key, counter+numChunks, flags))
+		cvs[numChunks] = ChainingValue(CompressChunk(partialChunk, key, counter+numChunks, flags))
 		numChunks++
 	}
 	return mergeSubtrees(&cvs, numChunks, key, flags)
@@ -66,7 +66,7 @@ func compressBuffer(buf *[maxSIMD * ChunkSize]byte, buflen int, key *[8]uint32, 
 	}
 }
 
-func compressChunk(chunk []byte, key *[8]uint32, counter uint64, flags uint32) Node {
+func CompressChunk(chunk []byte, key *[8]uint32, counter uint64, flags uint32) Node {
 	n := Node{
 		cv:       *key,
 		counter:  counter,
